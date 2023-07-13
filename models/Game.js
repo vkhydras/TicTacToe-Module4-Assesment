@@ -1,5 +1,4 @@
-// Game.js
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
 
 const gameSchema = new mongoose.Schema({
   board: [String],
@@ -18,6 +17,6 @@ const gameSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'moves'
   }]
-});
+})
 
 module.exports = mongoose.model("Game", gameSchema);
