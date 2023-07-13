@@ -13,5 +13,5 @@ function createCells(req, res, next) {
     next();
   }
   
-  module.exports = createCells;
+  module.exports = createCells
   
