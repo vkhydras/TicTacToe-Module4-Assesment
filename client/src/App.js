@@ -39,7 +39,7 @@ function App() {
       const { board, status } = response.data;
       setCells(board.map((value, index) => ({ value, id: index, clicked: !!value })));
 
-      if (status === "completed") {
+      if (status === "completed" && !board.some(cell => cell === "")) {
         setDraw(true);
         setWinner("");
       }
