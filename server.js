@@ -1,3 +1,4 @@
+//importing the modules
 const express = require("express")
 const connectDB = require("./db")
 const gameController = require("./controllers/gameController")
@@ -11,7 +12,7 @@ app.use(cors())
 // Connect to MongoDB
 connectDB()
 
-// Create a nwe game
+// Create a new game
 app.post("/games", gameController.createGame)
 
 // Retrieve game data
