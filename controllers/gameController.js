@@ -1,4 +1,4 @@
-const Game = require("../models/game")
+const Game = require("../models/Game")
 const Move = require("../models/moves")
 const createCells = require('../createCells')
 
