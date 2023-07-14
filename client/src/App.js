@@ -68,34 +68,39 @@ function App() {
   }
 
   function cellClick(id) {
-    new Audio(clickSound).play()
-    setGameStatus(true)
+    new Audio(clickSound).play();
+    setGameStatus(true);
     setCells((prevCells) => {
+      let currentPlayer = Xturn ? "X" : "O";
+  
       const newCells = prevCells.map((cell) => {
         if (cell.id === id && !cell.clicked && !win) {
-          setXturn((prev) => !prev)
+          currentPlayer = Xturn ? "X" : "O";
+          setXturn((prev) => !prev);
           return {
             ...cell,
-            value: Xturn ? "X" : "O",
+            value: currentPlayer,
             clicked: true,
-          }
+          };
         }
-        return cell
-      })
-      
+        return cell;
+      });
+  
       axios
         .put("http://localhost:5000/games", {
           board: newCells.map((cell) => cell.value),
+          Xturn: currentPlayer, 
         })
         .catch((error) => {
-          console.error("Error updating game:", error)
-        })
+          console.error("Error updating game:", error);
+        });
   
-      checkWinner(newCells) 
+      checkWinner(newCells);
   
-      return newCells
-    })
+      return newCells;
+    });
   }
+  
   
   function checkWinner(cells) {
     const options = cells.map((cell) => cell.value)

@@ -36,47 +36,52 @@ const getGame = async (req, res) => {
 
 
 const updateGame = async (req, res) => {
-  const { board } = req.body
+  const { board } = req.body;
 
   try {
-    const filter = { status: "ongoing" }
-    const update = { $set: { board } }
-    const options = { new: true }
+    const filter = { status: "ongoing" };
+    const update = { $set: { board } };
+    const options = { new: true };
 
-    let game = await Game.findOneAndUpdate(filter, update, options)
+    let game = await Game.findOneAndUpdate(filter, update, options);
 
     if (!game) {
-      return res.status(404).send("Game not found")
+      return res.status(404).send("Game not found");
     }
 
-    const winner = checkWinner(board)
-    const status = winner ? "completed" : board.every((cell) => cell !== "") ? "draw" : "ongoing"
+    const winner = checkWinner(board);
+    const status = winner ? "completed" : board.every((cell) => cell !== "") ? "draw" : "ongoing";
 
-    game.status = status
-    game.winner = winner
+    game.status = status;
+    game.winner = winner; 
 
-    const position = board.findIndex((cell) => cell === winner) 
-    const row = Math.floor(position / 3) 
-    const column = position % 3 
+    await game.save();
+
+  
+    const player = game.moves.length % 2 === 0 ? "O" : "X"; 
+    const position = board.findIndex((cell) => cell === player);
+    const row = Math.floor(position / 3);
+    const column = position % 3;
+
     const move = new Move({
       game: game._id,
-      player: winner, 
+      player,
       row,
-      column
-    })
+      column,
+    });
 
-    await move.save()
-    
-    game.moves.push(move._id)
+    await move.save();
 
-    await game.save()
+    game.moves.push(move._id);
 
-    res.json(game)
+    await game.save();
+
+    res.json(game);
   } catch (err) {
-    console.error("Error updating game:", err)
-    res.status(500).send("Error updating game")
+    console.error("Error updating game:", err);
+    res.status(500).send("Error updating game");
   }
-}
+};
 
 const checkWinner = (board) => {
   const winningCombo = [
