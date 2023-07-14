@@ -1,3 +1,4 @@
+// Corrected game to Game
 const Game = require("../models/Game")
 const Move = require("../models/moves")
 const createCells = require('../createCells')
