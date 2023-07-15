@@ -13,5 +13,5 @@ const connectDB = async () => {
     console.error("Error connecting to MongoDB:", err);
   }
 };
-
+// Exporting a function so as to be imported by anothrer module
 module.exports = connectDB

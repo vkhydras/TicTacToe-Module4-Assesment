@@ -1,5 +1,7 @@
+//imports the moongose module
 const mongoose = require('mongoose')
 
+//This defines the type of fields for the game object in the mongoDB collection
 const gameSchema = new mongoose.Schema({
   board: [String],
   playerX: String,

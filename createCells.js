@@ -1,3 +1,4 @@
+//Defining function called create cells sor generating the cellArray
 function createCells(req, res, next) {
     const cellsArray = [];
 //This 'for loop' used to add objects to the cells array 
