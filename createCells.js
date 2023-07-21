@@ -8,7 +8,9 @@ function createCells(req, res, next) {
         clicked: false,
       });
     }
-  
+
+//Next function is called to pass control to the next middleware 
+
     return cellsArray
     next();
   }

@@ -18,11 +18,14 @@ app.post("/games", gameController.createGame)
 // Retrieve game data
 app.get("/games", gameController.getGame)
 
-// Update game dat
+// Update game data
 app.put("/games", gameController.updateGame)
 
 
 app.use(createCells)
+
+
+//starts an exp server that listens on port 5000
 
 app.listen(5000, () => {
   console.log("Server is running on port 5000")
